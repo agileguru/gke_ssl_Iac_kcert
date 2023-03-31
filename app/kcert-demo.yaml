@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kcert-ingress
+  labels:
+    kcert.dev/ingress: "managed"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - kcert.agileguru.org # Change the word agileguru.org to your domain name
+    secretName: kcert-agileguru-org # Change the word agileguru-org to your domain name
+  rules:
+  - host: kcert.agileguru.org # Change the word agileguru.org to your domain name
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: demo-service # Should be a valid service
+            port: 
+                number: 80 # this should be a valid port of the service           
